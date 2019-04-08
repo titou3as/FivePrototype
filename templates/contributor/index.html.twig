@@ -4,7 +4,7 @@
        <h1 class="text-right text-primary">{{ contributor.login }} </h1>
         <h3 class="text-center text-danger">Liste des décisions non prises pour dépôt</h3>
             {% if(decisions | length > 0)  %}
-                {{ form_start(form) }}
+                {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
                     <table class="table">
                         <th>DOI Document concerné</th>
                         <th>Contenu de la décision</th>
