@@ -4,24 +4,28 @@
        <h1 class="text-right text-primary">{{ contributor.login }} </h1>
         <h3 class="text-center text-danger">Liste des décisions non prises pour dépôt</h3>
             {% if(decisions | length > 0)  %}
+                {{ form_start(form) }}
                     <table class="table">
                         <th>DOI Document concerné</th>
                         <th>Contenu de la décision</th>
                         <th>Décision à prendre</th>
-                        <tbdoy>
-                            {% for decision in decisions %}
+                        <tbody>
+                            {% for decision in form.decisions %}
                                 <tr>
-                                    <td>{{ decision.document.doi }}</td>
-                                    <td>{{ decision.content }}</td>
-                                    <td>*****************</td>
+                                    <td>{{ decision.vars.value.document.doi }}</td>
+                                    <td>{{ decision.vars.value.content }}</td>
+                                    <td>{{ form_row(decision) }}</td>
                                  </tr>
                             {% endfor %}
-                        </tbdoy>
+                        </tbody>
                     </table>
+               <!--
+                <a type="submit" href="{{ path('contributor_index_id',{'id': contributor.id}) }}" class="btn btn-primary"> Valider les décisions</a>
+                -->
+                <button class="btn btn-success">Décider</button>
+                {{ form_end(form) }}
             {% else %}
                 <blockquote>Vous n'avez aucune décisions à prendre pour dépôt</blockquote>
             {% endif %}
     </div>
-    <h1>Formulaire des décisions</h1>
-    {{ form(form) }}
 {% endblock %}
