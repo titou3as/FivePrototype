@@ -17,6 +17,7 @@ class ContributorType extends AbstractType
          //   ->add('pwd')
             ->add('decisions',CollectionType::class,[
                 'label' => false,
+             'required' =>false,
              'entry_type'=> DecisionType::class,
          ])
         ;

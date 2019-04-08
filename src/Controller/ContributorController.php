@@ -4,7 +4,9 @@
 namespace App\Controller;
 
 
+use App\Entity\Contributor;
 use App\Entity\Decision;
+use App\Form\ConnexionContributorType;
 use App\Form\ContributorType;
 use App\Form\DecisionType;
 use App\Repository\ContributorRepository;
@@ -58,9 +60,9 @@ class ContributorController extends  AbstractController
             foreach ($decisions as $decision)
                                 switch ($decision->getDeposit()){
                                                  case 'oui' : $decision->setIsTaken(true);$decision->setContent('Dépôt');break;
-                                                 case 'non' : $decision->setIsTaken(false);$decision->setContent('Refus Dépôt');break;
+                                                 case 'non' : $decision->setIsTaken(true);$decision->setContent('Refus Dépôt');break;
                                                  default    : //$decision->setIsTaken(null);
-                                                             $decision->setContent('En attente');break; // a voir
+                                                             $decision->setContent('En attente');break;
                                     }
             /**
              * Saving the contributor's decisions
@@ -79,5 +81,45 @@ class ContributorController extends  AbstractController
                                 'form' => $form->createView(),
 
                             ]);
+    }
+    /**
+     * @Route("/login", name = "contributor_connexion")
+     */
+    public function connexion(ContributorRepository $repository, Request $request): Response
+    {
+
+        $form = $this->createForm(ConnexionContributorType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted()&& $form->isValid()){
+            $data = $form->getData();
+            $login = $data->getLogin();
+            $pwd = $data->getPwd();
+            /**
+             *Searching for contributor's having login && Pwd into the database
+             * @var $contributor Contributor
+             */
+            $contributor = $repository->findOneBy([
+                'login' => $login,
+                'pwd'   => $pwd
+            ]);
+            if($contributor!==null){
+                $this->addFlash('success','Authentification réussite');
+                return $this->redirectToRoute('contributor_index_id',[
+                    'id' => $contributor->getId()
+                ]);
+            }
+        }
+        return $this->render('contributor/connexion.html.twig',[
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/logout", name="contributor_logout")
+     * @return Response
+     */
+    public function deconnexion(): Response{
+        $this->addFlash('success','Vous êtes déconnecté');
+        return $this->render('home/index.html.twig');
     }
 }

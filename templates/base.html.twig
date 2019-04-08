@@ -100,7 +100,7 @@
         <div class="nav navbar-nav navbar-right">
             <form class="form-inline pull-right"
                   style="margin-top: 8px; margin-right: 8px;"
-                  action="contributorconnexion" id="form-login">
+                  action="{{ path('contributor_connexion') }}" id="form-login">
                 <input type="hidden" name="forward-controller"
                        value="index" />
                 <input type="hidden" name="forward-action"
@@ -115,7 +115,7 @@
                     </button>
 
                     <ul class="dropdown-menu pull-right">
-                        <li><a href="#" onclick="$('#form-login').submit();">Connexion</a></li>
+                        <li><a href="{{ path('contributor_connexion') }}" onclick="$('#form-login').submit();">Connexion</a></li>
                         <li><a id="getorcid" href="https://orcid.org/oauth/authorize?client_id=APP-O6Y5HZD2SFM7ON6Z&response_type=code&scope=/authenticate&redirect_uri=https://hal.archives-ouvertes.fr/user/coext?url=https://hal.archives-ouvertes.fr/">Connexion avec ORCID</a></li>
                         <li class="divider"></li>
                         <li><a href="/user/create">Créer un compte</a></li>
