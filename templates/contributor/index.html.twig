@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+       <h1 class="text-right text-primary">{{ contributor.login }} </h1>
+        <h3 class="text-center text-danger">Liste des décisions non prises pour dépôt</h3>
+            {% if(decisions | length > 0)  %}
+                    <table class="table">
+                        <th>DOI Document concerné</th>
+                        <th>Contenu de la décision</th>
+                        <th>Décision à prendre</th>
+                        <tbdoy>
+                            {% for decision in decisions %}
+                                <tr>
+                                    <td>{{ decision.document.doi }}</td>
+                                    <td>{{ decision.content }}</td>
+                                    <td>*****************</td>
+                                 </tr>
+                            {% endfor %}
+                        </tbdoy>
+                    </table>
+            {% else %}
+                <blockquote>Vous n'avez aucune décisions à prendre pour dépôt</blockquote>
+            {% endif %}
+    </div>
+    <h1>Formulaire des décisions</h1>
+    {{ form(form) }}
+{% endblock %}
