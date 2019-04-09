@@ -58,6 +58,10 @@ class Decision
         return $this;
     }
 
+    public function getName() {
+        return "Decision-" . $this->getId();
+    }
+
     public function getContent(): ?string
     {
         return $this->content;

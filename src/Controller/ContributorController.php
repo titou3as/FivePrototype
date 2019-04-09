@@ -8,6 +8,7 @@ use App\Entity\Contributor;
 use App\Entity\Decision;
 use App\Form\ConnexionContributorType;
 use App\Form\ContributorType;
+use App\Form\DecisionsNotTakenType;
 use App\Form\DecisionType;
 use App\Repository\ContributorRepository;
 use App\Repository\DecisionRepository;
@@ -34,7 +35,12 @@ class ContributorController extends  AbstractController
     public function index(EntityManagerInterface $manager,ContributorRepository $contributorRepository, $id,DecisionRepository $decisionRepository,Request $request): Response{
         $contributor = $contributorRepository->find($id);
 
-        $decisions = $decisionRepository->allDecisionsNotTaken($id);
+        $decisions = $contributor->getDecisions()->filter(function ($decision){
+            return $decision->getIsTaken()==false;
+        });
+
+
+       $contributorNT = $contributorRepository->findContributorNT($id);
             //dump($decisions); die;
         /**
          * Formulaire reliés aux décisions à prendre par le contributor
@@ -42,20 +48,17 @@ class ContributorController extends  AbstractController
          *  2* Affichage du formulaire
          *  3* Traitement des résultats relatifs  aux décisions
          */
-        foreach ($contributor->getDecisions() as $decision) {
-            $contributor->removeDecision($decision);
-        }
-        foreach ($decisions as $decision){
-            $contributor->addDecision($decision);
-        }
+        //$decisionsNT = $decisionRepository->getAllDecisionsNotTaken($contributor->getId());
+
+       // dump($contributor->getDecisions());dump($decisions);dump(($decisionsNT));die;
+
         $form = $this->createForm(ContributorType::class,$contributor);
         $form->handleRequest($request);
         if($form->isSubmitted()){
             /**
              * Updating each decision with Form data
              */
-                                                    // dump($form->getData());
-            $decisions=$contributor->getDecisions();
+                                                  // dump($form->getData());
                                                     //dump($decisions);die;
             foreach ($decisions as $decision)
                                 switch ($decision->getDeposit()){
@@ -82,6 +85,8 @@ class ContributorController extends  AbstractController
 
                             ]);
     }
+
+
     /**
      * @Route("/login", name = "contributor_connexion")
      */
@@ -121,5 +126,63 @@ class ContributorController extends  AbstractController
     public function deconnexion(): Response{
         $this->addFlash('success','Vous êtes déconnecté');
         return $this->render('home/index.html.twig');
+    }
+
+
+    /**
+     * @Route("/not/{id}", name="contributor_show_not")
+     * @param EntityManagerInterface $manager
+     * @param ContributorRepository $contributorRepository
+     * @param $id
+     * @param DecisionRepository $decisionRepository
+     * @param Request $request
+     * @return Response
+     */
+    public function home(EntityManagerInterface $manager,ContributorRepository $contributorRepository, $id,DecisionRepository $decisionRepository,Request $request): Response{
+        $contributor = $contributorRepository->find($id);
+            $decisionsNT= $contributorRepository->findContributorNT($id);
+
+        /**
+         * Formulaire reliés aux décisions à prendre par le contributor
+         *  1* Changement des décisions que par ceux non prises
+         *  2* Affichage du formulaire
+         *  3* Traitement des résultats relatifs  aux décisions
+         */
+        //$decisionsNT = $decisionRepository->getAllDecisionsNotTaken($contributor->getId());
+
+        // dump($contributor->getDecisions());dump($decisions);dump(($decisionsNT));die;
+
+        $form = $this->createForm(DecisionsNotTakenType::class,$contributor,['empty_data' =>$decisionsNT]);
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            /**
+             * Updating each decision with Form data
+             */
+            // dump($form->getData());
+            //dump($decisions);die;
+            foreach ($decisionsNT as $decision)
+                switch ($decision->getDeposit()){
+                    case 'oui' : $decision->setIsTaken(true);$decision->setContent('Dépôt');break;
+                    case 'non' : $decision->setIsTaken(true);$decision->setContent('Refus Dépôt');break;
+                    default    : //$decision->setIsTaken(null);
+                        $decision->setContent('En attente');break;
+                }
+            /**
+             * Saving the contributor's decisions
+             */
+            //$manager->persist($contributor);
+            $manager->flush();
+            $this->addFlash('success','Les nouvelles décisions sont prises en compte');
+            return $this->redirectToRoute('contributor_index_id',[
+                'id' => $contributor->getId()
+            ]);
+        }
+        return $this->render('contributor/index.html.twig',
+            [
+                'contributor' => $contributor,
+                'decisions' => $decisionsNT,
+                'form' => $form->createView(),
+
+            ]);
     }
 }

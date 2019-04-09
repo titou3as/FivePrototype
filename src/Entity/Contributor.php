@@ -2,16 +2,21 @@
 
 namespace App\Entity;
 
+use App\Repository\DecisionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Doctrine\Common\Collections\Criteria;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContributorRepository")
  */
 class Contributor
 {
+    /**
+     * @var $decisionRepository DecisionRepository
+     */
+private  $decisionRepository;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -80,6 +85,13 @@ class Contributor
         return $this;
     }
 
+/*
+    public function getDecisionsNT() {
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq("isTaken", "0"));
+        return $this->decisions->matching($criteria);
+    }
+*/
     /**
      * @return Collection|Document[]
      */

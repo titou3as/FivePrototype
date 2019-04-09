@@ -1013,103 +1013,108 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="254" parent="241" name="IDX_84ACBE48C33F7837">
+    <column id="254" parent="241" name="deposit">
+      <Position>6</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="255" parent="241" name="IDX_84ACBE48C33F7837">
       <ColNames>document_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="255" parent="241" name="IDX_84ACBE487A19A357">
+    <index id="256" parent="241" name="IDX_84ACBE487A19A357">
       <ColNames>contributor_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="256" parent="241" name="PRIMARY">
+    <key id="257" parent="241" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="257" parent="241" name="FK_84ACBE48C33F7837">
+    <foreign-key id="258" parent="241" name="FK_84ACBE48C33F7837">
       <ColNames>document_id</ColNames>
       <RefSchemaName>hal</RefSchemaName>
       <RefTableName>document</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="258" parent="241" name="FK_84ACBE487A19A357">
+    <foreign-key id="259" parent="241" name="FK_84ACBE487A19A357">
       <ColNames>contributor_id</ColNames>
       <RefSchemaName>hal</RefSchemaName>
       <RefTableName>contributor</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="259" parent="242" name="id">
+    <column id="260" parent="242" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="242" name="doi">
+    <column id="261" parent="242" name="doi">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="261" parent="242" name="PRIMARY">
+    <key id="262" parent="242" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="262" parent="243" name="document_id">
+    <column id="263" parent="243" name="document_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="263" parent="243" name="contributor_id">
+    <column id="264" parent="243" name="contributor_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="264" parent="243" name="IDX_58C6A0F9C33F7837">
+    <index id="265" parent="243" name="IDX_58C6A0F9C33F7837">
       <ColNames>document_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="265" parent="243" name="IDX_58C6A0F97A19A357">
+    <index id="266" parent="243" name="IDX_58C6A0F97A19A357">
       <ColNames>contributor_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="266" parent="243" name="PRIMARY">
+    <key id="267" parent="243" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>document_id
 contributor_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="267" parent="243" name="FK_58C6A0F9C33F7837">
+    <foreign-key id="268" parent="243" name="FK_58C6A0F9C33F7837">
       <ColNames>document_id</ColNames>
       <RefSchemaName>hal</RefSchemaName>
       <RefTableName>document</RefTableName>
       <RefColNames>id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="268" parent="243" name="FK_58C6A0F97A19A357">
+    <foreign-key id="269" parent="243" name="FK_58C6A0F97A19A357">
       <ColNames>contributor_id</ColNames>
       <RefSchemaName>hal</RefSchemaName>
       <RefTableName>contributor</RefTableName>
       <RefColNames>id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="269" parent="244" name="version">
+    <column id="270" parent="244" name="version">
       <Position>1</Position>
       <DataType>varchar(14)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="270" parent="244" name="executed_at">
+    <column id="271" parent="244" name="executed_at">
       <Position>2</Position>
       <Comment>(DC2Type:datetime_immutable)</Comment>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="271" parent="244" name="PRIMARY">
+    <key id="272" parent="244" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>version</ColNames>
       <Primary>1</Primary>

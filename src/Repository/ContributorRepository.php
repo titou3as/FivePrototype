@@ -20,6 +20,17 @@ class ContributorRepository extends ServiceEntityRepository
         parent::__construct($registry, Contributor::class);
     }
 
+    /**
+     * @param $id
+     * @return Contributor
+     */
+    public function findContributorNT($id){
+
+       return $this->find($id)->getDecisions()->filter(function ($decision){
+             return $decision->getIsTaken()==false;
+            });
+
+    }
    
     // /**
     //  * @return Contributor[] Returns an array of Contributor objects

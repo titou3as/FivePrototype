@@ -23,7 +23,7 @@ class DecisionRepository extends ServiceEntityRepository
      * Function return all Not Taken Decisions for the $id Contributor
      * @return Decision[] Returns an array of Decision objects
      */
-    public function allDecisionsNotTaken($id){
+    public function getAllDecisionsNotTaken($id){
         return $this->createQueryBuilder('d')
                ->where("d.contributor = '$id'")
             ->andWhere('d.isTaken = false')

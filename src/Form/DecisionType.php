@@ -18,13 +18,15 @@ class DecisionType extends AbstractType
          //   ->add('document')
          //   ->add('contributor')
             ->add('deposit',ChoiceType::class,[//'label'=> 'Voulez-vous déposer ?',
-               'label'=>false,
+               'label'=>'voulez vous',
                'expanded' => true,
+                'attr' => [ 'id' => 'eee' ],
                 'choices'=>[
                     'Je veux déposer'=> 'oui',
                     'Je ne veux pas' => 'non',
                     'Je ne sais pas encore' => 'wait'
                 ],
+
            ])
         ;
     }
@@ -33,7 +35,7 @@ class DecisionType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Decision::class,
-
+            'label' =>false,
         ]);
     }
 }

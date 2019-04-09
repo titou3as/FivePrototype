@@ -14,14 +14,15 @@
                                 <tr>
                                     <td>{{ decision.vars.value.document.doi }}</td>
                                     <td>{{ decision.vars.value.content }}</td>
-                                    <td>{{ form_row(decision) }}</td>
+                                    <td><div class="dec-{{ decision.vars.value.id }}">
+                                        {{ form_row(decision,{'id': 'ddd', 'widget-attr' : { 'id' : decision.vars.value.getName }})  }}
+                                        </div>
+                                    </td>
                                  </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-               <!--
-                <a type="submit" href="{{ path('contributor_index_id',{'id': contributor.id}) }}" class="btn btn-primary"> Valider les décisions</a>
-                -->
+
                 <button class="btn btn-success">Décider</button>
                 {{ form_end(form) }}
             {% else %}
