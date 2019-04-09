@@ -15,6 +15,7 @@ use App\Repository\DecisionRepository;
 use App\Repository\DocumentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,8 +41,7 @@ class ContributorController extends  AbstractController
         });
 
 
-       $contributorNT = $contributorRepository->findContributorNT($id);
-            //dump($decisions); die;
+           // dump($decisions); die;
         /**
          * Formulaire reliés aux décisions à prendre par le contributor
          *  1* Changement des décisions que par ceux non prises
@@ -52,7 +52,7 @@ class ContributorController extends  AbstractController
 
        // dump($contributor->getDecisions());dump($decisions);dump(($decisionsNT));die;
 
-        $form = $this->createForm(ContributorType::class,$contributor);
+        $form = $this->createForm(ContributorType::class,$contributor,['data' => $decisions]);
         $form->handleRequest($request);
         if($form->isSubmitted()){
             /**
@@ -140,7 +140,7 @@ class ContributorController extends  AbstractController
      */
     public function home(EntityManagerInterface $manager,ContributorRepository $contributorRepository, $id,DecisionRepository $decisionRepository,Request $request): Response{
         $contributor = $contributorRepository->find($id);
-            $decisionsNT= $contributorRepository->findContributorNT($id);
+        $decisionsNT= $contributorRepository->findContributorNT($id);
 
         /**
          * Formulaire reliés aux décisions à prendre par le contributor
@@ -152,7 +152,18 @@ class ContributorController extends  AbstractController
 
         // dump($contributor->getDecisions());dump($decisions);dump(($decisionsNT));die;
 
-        $form = $this->createForm(DecisionsNotTakenType::class,$contributor,['empty_data' =>$decisionsNT]);
+      //  $form = $this->createForm(ContributorType::class,$contributor,['empty_data' => $decisionsNT]);
+
+        $form = $this->createFormBuilder($decisionsNT)
+            ->add('decisions', CollectionType::class,
+                [
+                    'compound' =>false,
+                    'label' => false,
+                    'required' =>false,
+                    'entry_type'=> DecisionType::class,
+                    'empty_data' => $decisionsNT
+                ])
+            ->getForm();
         $form->handleRequest($request);
         if($form->isSubmitted()){
             /**
@@ -160,6 +171,7 @@ class ContributorController extends  AbstractController
              */
             // dump($form->getData());
             //dump($decisions);die;
+           dump($form->getData());
             foreach ($decisionsNT as $decision)
                 switch ($decision->getDeposit()){
                     case 'oui' : $decision->setIsTaken(true);$decision->setContent('Dépôt');break;
