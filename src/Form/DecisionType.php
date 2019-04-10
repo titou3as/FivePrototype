@@ -18,9 +18,8 @@ class DecisionType extends AbstractType
          //   ->add('document')
          //   ->add('contributor')
             ->add('deposit',ChoiceType::class,[//'label'=> 'Voulez-vous déposer ?',
-               'label'=>'voulez vous',
+               'label'=> false,
                'expanded' => true,
-                'attr' => [ 'id' => 'eee' ],
                 'choices'=>[
                     'Je veux déposer'=> 'oui',
                     'Je ne veux pas' => 'non',

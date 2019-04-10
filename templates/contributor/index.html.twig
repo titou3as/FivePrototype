@@ -10,13 +10,12 @@
                         <th>Contenu de la décision</th>
                         <th>Décision à prendre</th>
                         <tbody>
-                            {% for decision in form.decisions %}
+                            {% for decision in form.decisionsNT %}
                                 <tr>
                                     <td>{{ decision.vars.value.document.doi }}</td>
                                     <td>{{ decision.vars.value.content }}</td>
-                                    <td><div class="dec-{{ decision.vars.value.id }}">
-                                        {{ form_row(decision,{'id': 'ddd', 'widget-attr' : { 'id' : decision.vars.value.getName }})  }}
-                                        </div>
+                                    <td>
+                                        {{ form_widget(decision ,{'id' : 'num'})  }}
                                     </td>
                                  </tr>
                             {% endfor %}
@@ -30,4 +29,6 @@
             {% endif %}
     </div>
     <a class="btn btn-danger" href="{{ path('contributor_logout') }}">Se déconnecter</a>
+
+
 {% endblock %}

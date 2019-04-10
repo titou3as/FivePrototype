@@ -49,6 +49,7 @@ private  $decisionRepository;
      * @ORM\OneToMany(targetEntity="App\Entity\Decision", mappedBy="contributor")
      */
     private $decisions;
+    private $decisionsNT;
 
     public function __construct()
     {
@@ -149,5 +150,42 @@ private  $decisionRepository;
         }
 
         return $this;
+    }
+    /**
+     * @return Collection|Decision[]
+     */
+    public function getDecisionsNT(): Collection
+    {
+        return $this->decisionsNT;
+    }
+
+    public function addDecisionNT(Decision $decision): self
+    {
+        if (!$this->decisionsNT->contains($decision)) {
+            $this->decisionsNT[] = $decision;
+            $decision->setContributor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDecisionNT(Decision $decision): self
+    {
+        if ($this->decisionsNT->contains($decision)) {
+            $this->decisionsNT->removeElement($decision);
+            // set the owning side to null (unless already changed)
+            if ($decision->getContributor() === $this) {
+                $decision->setContributor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Decision[] $decisionsNT
+     */
+    public function setDecisionsNT($decisionsNT){
+        $this->decisionsNT = $decisionsNT;
     }
 }

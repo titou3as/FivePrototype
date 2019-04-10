@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Contributor;
 use App\Repository\ContributorRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,11 +18,13 @@ class ContributorType extends AbstractType
         $builder
          //   ->add('login')
          //   ->add('pwd')
-            ->add('decisions',CollectionType::class,[
+
+            ->add('decisionsNT',CollectionType::class,[
                 'label' => false,
              'required' =>false,
              'entry_type'=> DecisionType::class,
          ])
+
         ;
     }
 

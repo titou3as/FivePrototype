@@ -40,7 +40,8 @@ class ContributorController extends  AbstractController
             return $decision->getIsTaken()==false;
         });
 
-
+            $contributor->setDecisionsNT($decisions);
+           // dump($contributor->getDecisionsNT());die;
            // dump($decisions); die;
         /**
          * Formulaire reliés aux décisions à prendre par le contributor
@@ -52,7 +53,8 @@ class ContributorController extends  AbstractController
 
        // dump($contributor->getDecisions());dump($decisions);dump(($decisionsNT));die;
 
-        $form = $this->createForm(ContributorType::class,$contributor,['data' => $decisions]);
+      //  $form = $this->createForm(ContributorType::class,$contributor,['data' => $decisions]);
+        $form = $this->createForm(ContributorType::class,$contributor);
         $form->handleRequest($request);
         if($form->isSubmitted()){
             /**
@@ -154,16 +156,7 @@ class ContributorController extends  AbstractController
 
       //  $form = $this->createForm(ContributorType::class,$contributor,['empty_data' => $decisionsNT]);
 
-        $form = $this->createFormBuilder($decisionsNT)
-            ->add('decisions', CollectionType::class,
-                [
-                    'compound' =>false,
-                    'label' => false,
-                    'required' =>false,
-                    'entry_type'=> DecisionType::class,
-                    'empty_data' => $decisionsNT
-                ])
-            ->getForm();
+        $form = $this->createForm(ContributorType::class,$contributor);
         $form->handleRequest($request);
         if($form->isSubmitted()){
             /**
