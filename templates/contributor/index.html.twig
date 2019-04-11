@@ -15,10 +15,13 @@
                                     <td>{{ decision.vars.value.document.doi }}</td>
                                     <td>{{ decision.vars.value.content }}</td>
                                     <td>
-                                        {{ form_widget(decision ,{'id' : 'num'})  }}
+                                        {% if is_granted('decide', decision) %}
+                                                {{ form_widget(decision ,{'id' : 'num'})  }}
+                                        {% endif %}
                                     </td>
                                  </tr>
                             {% endfor %}
+
                         </tbody>
                     </table>
 

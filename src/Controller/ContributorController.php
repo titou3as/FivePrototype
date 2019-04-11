@@ -35,7 +35,10 @@ class ContributorController extends  AbstractController
      */
     public function index(EntityManagerInterface $manager,ContributorRepository $contributorRepository, $id,DecisionRepository $decisionRepository,Request $request): Response{
         $contributor = $contributorRepository->find($id);
-
+        if(!$this->isGranted('decide',$contributor)){
+            $this->addFlash('danger','Accès interdit, veuillez vérifier vos droits de propriété à la déicision');
+            return $this->redirectToRoute('contributor_connexion');
+        }
         $decisions = $contributor->getDecisions()->filter(function ($decision){
             return $decision->getIsTaken()==false;
         });
@@ -62,13 +65,25 @@ class ContributorController extends  AbstractController
              */
                                                   // dump($form->getData());
                                                     //dump($decisions);die;
-            foreach ($decisions as $decision)
-                                switch ($decision->getDeposit()){
-                                                 case 'oui' : $decision->setIsTaken(true);$decision->setContent('Dépôt');break;
-                                                 case 'non' : $decision->setIsTaken(true);$decision->setContent('Refus Dépôt');break;
-                                                 default    : //$decision->setIsTaken(null);
-                                                             $decision->setContent('En attente');break;
-                                    }
+            foreach ($decisions as $decision) {
+                //Check for decide permissions
+                 if($decision){
+
+                 }
+                switch ($decision->getDeposit()) {
+                    case 'oui' :
+                        $decision->setIsTaken(true);
+                        $decision->setContent('Dépôt');
+                        break;
+                    case 'non' :
+                        $decision->setIsTaken(true);
+                        $decision->setContent('Refus Dépôt');
+                        break;
+                    default    : //$decision->setIsTaken(null);
+                        $decision->setContent('En attente');
+                        break;
+                }
+            }
             /**
              * Saving the contributor's decisions
              */

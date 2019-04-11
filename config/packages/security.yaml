@@ -22,3 +22,8 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+
+    app.security.voter.decision:
+        class: App\Security\DecisionVoter
+        tags:
+            - { name: security.voter }
