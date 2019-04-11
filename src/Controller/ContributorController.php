@@ -65,13 +65,25 @@ class ContributorController extends  AbstractController
              */
                                                   // dump($form->getData());
                                                     //dump($decisions);die;
-            foreach ($decisions as $decision)
-                                switch ($decision->getDeposit()){
-                                                 case 'oui' : $decision->setIsTaken(true);$decision->setContent('Dépôt');break;
-                                                 case 'non' : $decision->setIsTaken(true);$decision->setContent('Refus Dépôt');break;
-                                                 default    : //$decision->setIsTaken(null);
-                                                             $decision->setContent('En attente');break;
-                                    }
+            foreach ($decisions as $decision) {
+                //Check for decide permissions
+                 if($decision){
+
+                 }
+                switch ($decision->getDeposit()) {
+                    case 'oui' :
+                        $decision->setIsTaken(true);
+                        $decision->setContent('Dépôt');
+                        break;
+                    case 'non' :
+                        $decision->setIsTaken(true);
+                        $decision->setContent('Refus Dépôt');
+                        break;
+                    default    : //$decision->setIsTaken(null);
+                        $decision->setContent('En attente');
+                        break;
+                }
+            }
             /**
              * Saving the contributor's decisions
              */
