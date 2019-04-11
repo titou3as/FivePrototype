@@ -35,10 +35,12 @@ class ContributorController extends  AbstractController
      */
     public function index(EntityManagerInterface $manager,ContributorRepository $contributorRepository, $id,DecisionRepository $decisionRepository,Request $request): Response{
         $contributor = $contributorRepository->find($id);
-        if(!$this->isGranted('decide',$contributor)){
+        /*
+         * if(!$this->isGranted('decide',$contributor)){
             $this->addFlash('danger','Accès interdit, veuillez vérifier vos droits de propriété à la déicision');
             return $this->redirectToRoute('contributor_connexion');
         }
+        */
         $decisions = $contributor->getDecisions()->filter(function ($decision){
             return $decision->getIsTaken()==false;
         });

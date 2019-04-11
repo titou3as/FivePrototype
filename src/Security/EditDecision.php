@@ -4,7 +4,7 @@ use App\Entity\Contributor;
 use App\Entity\Decision;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-class EditDecision extends Voter
+class EditDecision //extends Voter
 {
 
     const DECIDE = 'DECIDE';

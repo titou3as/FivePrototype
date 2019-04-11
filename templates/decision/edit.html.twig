@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        {{ form_start(form,{'name':'dec'}) }}
+        <div class="form-group">
+            {{ form_label(form.deposit,"Voulez vous déposer ?") }}
+            {{ form_widget(form.deposit,{'attr':{'data-id':form.vars.value.id~'-'~form.vars.value.document.id~'-'~form.vars.value.contributor.id}}) }}
+            <div class="alert alert-danger">
+                {{ form_rest(form.deposit) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
