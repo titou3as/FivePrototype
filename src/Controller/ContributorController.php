@@ -48,22 +48,31 @@ class ContributorController extends  AbstractController
          */
         $form = $this->createForm(ContributorType::class,$contributor);
         $form->handleRequest($request);
-        /**
-         * Access Roles Validation
-         */
-        $this->denyAccessUnlessGranted('update',$contributor);
+
          // After the Submission of the Form
         if($form->isSubmitted()){
             /**
              * Updating each decision with Form data
              */
-            foreach ($decisions as $decision)
-                                switch ($decision->getDeposit()){
-                                                 case 'oui' : $decision->setIsTaken(true);$decision->setContent('Dépôt');break;
-                                                 case 'non' : $decision->setIsTaken(true);$decision->setContent('Refus Dépôt');break;
-                                                 default    : //$decision->setIsTaken(null);
-                                                             $decision->setContent('STILL WAITING FOR DEPOSIT DECISION');break;
-                                    }
+            foreach ($decisions as $decision) {
+                /**
+                 * Access Roles Validation
+                 */
+                //$this->denyAccessUnlessGranted('update',$contributor);
+                switch ($decision->getDeposit()) {
+                                                    case 'oui' :
+                                                                $decision->setIsTaken(true);
+                                                                $decision->setContent('Dépôt');
+                                                                break;
+                                                    case 'non' :
+                                                                $decision->setIsTaken(true);
+                                                                $decision->setContent('Refus Dépôt');
+                                                                break;
+                                                    default    : //$decision->setIsTaken(null);
+                                                                $decision->setContent('STILL WAITING FOR DEPOSIT DECISION');
+                                                                break;
+                                            }
+            }
             /**
              * Saving the contributor's decisions
              */
