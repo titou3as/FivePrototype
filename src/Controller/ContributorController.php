@@ -67,7 +67,7 @@ class ContributorController extends  AbstractController
                                                  case 'oui' : $decision->setIsTaken(true);$decision->setContent('Dépôt');break;
                                                  case 'non' : $decision->setIsTaken(true);$decision->setContent('Refus Dépôt');break;
                                                  default    : //$decision->setIsTaken(null);
-                                                             $decision->setContent('En attente');break;
+                                                             $decision->setContent('STILL WAITING FOR DEPOSIT DECISION');break;
                                     }
             /**
              * Saving the contributor's decisions
