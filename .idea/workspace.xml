@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="712237c6-e536-4b46-9130-de2554e596c8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Controller/ContributorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ContributorController.php" afterDir="false" />
-    </list>
+    <list default="true" id="712237c6-e536-4b46-9130-de2554e596c8" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +102,7 @@
         <entry file="file://$PROJECT_DIR$/src/Security/Voter/DecisionVoter.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="810">
-              <caret line="54" column="75" lean-forward="true" selection-start-line="54" selection-start-column="75" selection-end-line="54" selection-end-column="75" />
+              <caret line="54" column="75" selection-start-line="54" selection-start-column="75" selection-end-line="54" selection-end-column="75" />
               <folding>
                 <element signature="e#38#65#0#PHP" expanded="true" />
               </folding>
@@ -384,12 +382,12 @@
       <workItem from="1554878520549" duration="1832000" />
       <workItem from="1554909318225" duration="130000" />
       <workItem from="1554965341022" duration="183000" />
-      <workItem from="1555074203853" duration="3303000" />
+      <workItem from="1555074203853" duration="4101000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46755000" />
+    <option name="totallyTimeSpent" value="47553000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -643,7 +641,7 @@
     <entry file="file://$PROJECT_DIR$/src/Security/Voter/DecisionVoter.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="810">
-          <caret line="54" column="75" lean-forward="true" selection-start-line="54" selection-start-column="75" selection-end-line="54" selection-end-column="75" />
+          <caret line="54" column="75" selection-start-line="54" selection-start-column="75" selection-end-line="54" selection-end-column="75" />
           <folding>
             <element signature="e#38#65#0#PHP" expanded="true" />
           </folding>
