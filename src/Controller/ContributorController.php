@@ -39,29 +39,24 @@ class ContributorController extends  AbstractController
         $decisions = $contributor->getDecisions()->filter(function ($decision){
             return $decision->getIsTaken()==false;
         });
-
             $contributor->setDecisionsNT($decisions);
-           // dump($contributor->getDecisionsNT());die;
-           // dump($decisions); die;
         /**
          * Formulaire reliés aux décisions à prendre par le contributor
          *  1* Changement des décisions que par ceux non prises
          *  2* Affichage du formulaire
          *  3* Traitement des résultats relatifs  aux décisions
          */
-        //$decisionsNT = $decisionRepository->getAllDecisionsNotTaken($contributor->getId());
-
-       // dump($contributor->getDecisions());dump($decisions);dump(($decisionsNT));die;
-
-      //  $form = $this->createForm(ContributorType::class,$contributor,['data' => $decisions]);
         $form = $this->createForm(ContributorType::class,$contributor);
         $form->handleRequest($request);
+        /**
+         * Access Roles Validation
+         */
+        $this->denyAccessUnlessGranted('update',$contributor);
+         // After the Submission of the Form
         if($form->isSubmitted()){
             /**
              * Updating each decision with Form data
              */
-                                                  // dump($form->getData());
-                                                    //dump($decisions);die;
             foreach ($decisions as $decision)
                                 switch ($decision->getDeposit()){
                                                  case 'oui' : $decision->setIsTaken(true);$decision->setContent('Dépôt');break;
@@ -72,7 +67,6 @@ class ContributorController extends  AbstractController
             /**
              * Saving the contributor's decisions
              */
-              //$manager->persist($contributor);
             $manager->flush();
             $this->addFlash('success','Les nouvelles décisions sont prises en compte');
             return $this->redirectToRoute('contributor_index_id',[
