@@ -39,9 +39,10 @@ class ContributorController extends  AbstractController
             $this->addFlash('danger','Accès interdit, veuillez vérifier vos droits de propriété à la déicision');
             return $this->redirectToRoute('contributor_connexion');
         }
-        $decisions = $contributor->getDecisions()->filter(function ($decision){
-            return $decision->getIsTaken()==false;
-        });
+        $decisions = $contributor->getDecisions()
+                                 ->filter(function ($decision){
+                                      return $decision->getIsTaken()==false;
+                                         });
 
             $contributor->setDecisionsNT($decisions);
            // dump($contributor->getDecisionsNT());die;
