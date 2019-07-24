@@ -80,9 +80,8 @@ class DecisionCommand extends Command
              */
             $decision = new Decision();
             $decision->setContent('En cours de construction')
-                ->addDocument($document)
-                ->addContributor($contributor)
-                ->setAllowedAt(new \DateTime())
+                ->setDocument($document)
+                ->setContributor($contributor)
                 ->setIsTaken(false);
             /**
              * Persist the Decision and Flush into the Database
